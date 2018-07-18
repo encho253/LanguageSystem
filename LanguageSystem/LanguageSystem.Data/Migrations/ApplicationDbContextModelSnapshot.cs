@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LanguageSystem.Web.Data.Migrations
+namespace LanguageSystem.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(LanguageSystemDbContext))]
+    partial class LanguageSystemDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -125,7 +121,7 @@ namespace LanguageSystem.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LanguageSystem.Web.Models.User", b =>
+            modelBuilder.Entity("LanguageSystem.Data.Models.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -184,7 +180,7 @@ namespace LanguageSystem.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LanguageSystem.Web.Models.User")
+                    b.HasOne("LanguageSystem.Data.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -192,7 +188,7 @@ namespace LanguageSystem.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LanguageSystem.Web.Models.User")
+                    b.HasOne("LanguageSystem.Data.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -205,7 +201,7 @@ namespace LanguageSystem.Web.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LanguageSystem.Web.Models.User")
+                    b.HasOne("LanguageSystem.Data.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

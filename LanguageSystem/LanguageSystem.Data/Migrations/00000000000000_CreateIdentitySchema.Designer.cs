@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LanguageSystem.Web.Data.Migrations
+namespace LanguageSystem.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(LanguageSystemDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
@@ -126,7 +123,7 @@ namespace LanguageSystem.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LanguageSystem.Web.Models.User", b =>
+            modelBuilder.Entity("LanguageSystem.Data.Models.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -185,7 +182,7 @@ namespace LanguageSystem.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LanguageSystem.Web.Models.User")
+                    b.HasOne("LanguageSystem.Data.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -193,7 +190,7 @@ namespace LanguageSystem.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LanguageSystem.Web.Models.User")
+                    b.HasOne("LanguageSystem.Data.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -206,7 +203,7 @@ namespace LanguageSystem.Web.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LanguageSystem.Web.Models.User")
+                    b.HasOne("LanguageSystem.Data.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
