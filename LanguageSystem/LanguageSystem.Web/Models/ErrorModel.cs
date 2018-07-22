@@ -1,5 +1,3 @@
-using System;
-
 namespace LanguageSystem.Web.Models
 {
     public class ErrorModel
