@@ -1,6 +1,6 @@
 ﻿namespace LanguageSystem.Web.Models.ManageViewModels
 {
-    public class TwoFactorAuthenticationViewModel
+    public class TwoFactorAuthenticationModel
     {
         public bool HasAuthenticator { get; set; }
 

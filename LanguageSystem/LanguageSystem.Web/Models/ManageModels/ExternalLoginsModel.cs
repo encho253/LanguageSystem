@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LanguageSystem.Web.Models.ManageViewModels
 {
-    public class ExternalLoginsViewModel
+    public class ExternalLoginsModel
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace LanguageSystem.Web.Models.ManageViewModels
 {
-    public class IndexViewModel
+    public class IndexModel
     {
         public string Username { get; set; }
 

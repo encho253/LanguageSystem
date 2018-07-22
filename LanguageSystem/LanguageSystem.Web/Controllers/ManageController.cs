@@ -53,7 +53,7 @@ namespace LanguageSystem.Web.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var model = new IndexViewModel
+            var model = new IndexModel
             {
                 Username = user.UserName,
                 Email = user.Email,
@@ -67,7 +67,7 @@ namespace LanguageSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IndexViewModel model)
+        public async Task<IActionResult> Index(IndexModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace LanguageSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendVerificationEmail(IndexViewModel model)
+        public async Task<IActionResult> SendVerificationEmail(IndexModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -143,13 +143,13 @@ namespace LanguageSystem.Web.Controllers
                 return RedirectToAction(nameof(SetPassword));
             }
 
-            var model = new ChangePasswordViewModel { StatusMessage = StatusMessage };
+            var model = new ChangePasswordModel { StatusMessage = StatusMessage };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -192,13 +192,13 @@ namespace LanguageSystem.Web.Controllers
                 return RedirectToAction(nameof(ChangePassword));
             }
 
-            var model = new SetPasswordViewModel { StatusMessage = StatusMessage };
+            var model = new SetPasswordModel { StatusMessage = StatusMessage };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SetPassword(SetPasswordViewModel model)
+        public async Task<IActionResult> SetPassword(SetPasswordModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -233,7 +233,7 @@ namespace LanguageSystem.Web.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var model = new ExternalLoginsViewModel { CurrentLogins = await _userManager.GetLoginsAsync(user) };
+            var model = new ExternalLoginsModel { CurrentLogins = await _userManager.GetLoginsAsync(user) };
             model.OtherLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
                 .Where(auth => model.CurrentLogins.All(ul => auth.Name != ul.LoginProvider))
                 .ToList();
@@ -314,7 +314,7 @@ namespace LanguageSystem.Web.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var model = new TwoFactorAuthenticationViewModel
+            var model = new TwoFactorAuthenticationModel
             {
                 HasAuthenticator = await _userManager.GetAuthenticatorKeyAsync(user) != null,
                 Is2faEnabled = user.TwoFactorEnabled,
@@ -370,7 +370,7 @@ namespace LanguageSystem.Web.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var model = new EnableAuthenticatorViewModel();
+            var model = new EnableAuthenticatorModel();
             await LoadSharedKeyAndQrCodeUriAsync(user, model);
 
             return View(model);
@@ -378,7 +378,7 @@ namespace LanguageSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EnableAuthenticator(EnableAuthenticatorViewModel model)
+        public async Task<IActionResult> EnableAuthenticator(EnableAuthenticatorModel model)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -422,7 +422,7 @@ namespace LanguageSystem.Web.Controllers
                 return RedirectToAction(nameof(TwoFactorAuthentication));
             }
 
-            var model = new ShowRecoveryCodesViewModel { RecoveryCodes = recoveryCodes };
+            var model = new ShowRecoveryCodesModel { RecoveryCodes = recoveryCodes };
             return View(model);
         }
 
@@ -484,7 +484,7 @@ namespace LanguageSystem.Web.Controllers
             var recoveryCodes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
             _logger.LogInformation("User with ID {UserId} has generated new 2FA recovery codes.", user.Id);
 
-            var model = new ShowRecoveryCodesViewModel { RecoveryCodes = recoveryCodes.ToArray() };
+            var model = new ShowRecoveryCodesModel { RecoveryCodes = recoveryCodes.ToArray() };
 
             return View(nameof(ShowRecoveryCodes), model);
         }
@@ -525,7 +525,7 @@ namespace LanguageSystem.Web.Controllers
                 unformattedKey);
         }
 
-        private async Task LoadSharedKeyAndQrCodeUriAsync(User user, EnableAuthenticatorViewModel model)
+        private async Task LoadSharedKeyAndQrCodeUriAsync(User user, EnableAuthenticatorModel model)
         {
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
             if (string.IsNullOrEmpty(unformattedKey))
