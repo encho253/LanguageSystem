@@ -286,7 +286,7 @@ namespace LanguageSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel model)
+        public async Task<IActionResult> RemoveLogin(RemoveLoginModel model)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)

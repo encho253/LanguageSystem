@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LanguageSystem.Web.Models.AccountViewModels
+namespace LanguageSystem.Web.Models.AccountModels
 {
-    public class LoginViewModel
+    public class LoginModel
     {
         [Required]
         [EmailAddress]
